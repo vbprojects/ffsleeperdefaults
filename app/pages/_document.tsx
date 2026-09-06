@@ -15,7 +15,7 @@ export default function Document() {
           content="fantasy,football,ranking,picks,rosters,scoring,projections,assistant,wizard,help"
         />
 
-        <link rel="shortcut icon" href="fb.ico" />
+        <link rel="shortcut icon" href={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/fb.ico`} />
         <link
           href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900"
           rel="stylesheet"

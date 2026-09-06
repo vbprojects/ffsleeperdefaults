@@ -64,3 +64,29 @@ While the suggestions are useful, it's usually enough to just draft the top play
 ## Controls
 
 Clicking on a player drafts him to the active team (currently drafting). You can skip the current turn (not drafting a player), undo the last round's pick (if they make a mistake), or remove a player (if the player was drafted already but you missed it).
+
+## GitHub Pages deployment
+
+In this fork, `.github/workflows/app.yaml` builds pull requests and deploys the
+static app after pushes to `main` (or a manual run on `main`). It uses Node.js 22,
+`npm ci`, and `npm run build`; AWS credentials are not needed for the app.
+
+Before the first deployment, open **Settings → Pages → Build and deployment**
+and select **GitHub Actions** as the source. Merge the deployment PR to trigger
+the first deployment. The site will be at
+https://vbprojects.github.io/ffsleeperdefaults/ once the workflow succeeds.
+
+The workflow sets `NEXT_PUBLIC_BASE_PATH` to the repository path so JavaScript,
+styles, projections, and the favicon load under the Pages subdirectory. Local
+builds default to the domain root. To reproduce a Pages build locally:
+
+```sh
+cd app
+npm ci
+NEXT_PUBLIC_BASE_PATH=/ffsleeperdefaults npm run build
+```
+
+Pages publishes the checked-in `app/public/projections.json` snapshot. The
+separate data scraping workflow still uses the existing AWS pipeline; it does
+not refresh the Pages snapshot. Commit updated projections to `main` to publish
+them on Pages.

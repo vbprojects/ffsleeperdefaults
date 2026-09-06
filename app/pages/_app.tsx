@@ -38,7 +38,7 @@ if (typeof window !== 'undefined') {
         console.warn(this.readyState, this.status, xhttp.responseText);
       }
     };
-    xhttp.open('GET', '/projections.json', true);
+    xhttp.open('GET', `${process.env.NEXT_PUBLIC_BASE_PATH || ''}/projections.json`, true);
     xhttp.send();
   };
 }
