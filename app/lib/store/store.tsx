@@ -68,12 +68,12 @@ export interface IStoreState {
 
   /**
    * The roster of the teams being drafted for.
-   * The default is 1QB, 2RB, 2WR, 1TE, 1FLEX, 1K, 1DST, and 7Bench, but this can be changed
+   * The default is 1QB, 2RB, 2WR, 1TE, 2 FLEX, 1K, 1DST, and 5 bench slots, but this can be changed
    */
   rosterFormat: IRoster;
 
   /**
-   * The user's league scoring. The default is for an ESPN league
+   * The user's league scoring. The default is full PPR
    */
   scoring: IScoring;
 
@@ -117,13 +117,13 @@ export const createTeam = (rosterFormat: IRoster): ITeam => ({
 });
 
 /**
- * Typical ESPN, CBS, Yahoo League. I'm using this as baseline for VOR calculation.
+ * Default roster with 2 FLEX and 5 bench slots, used as the baseline for VOR calculation.
  * If the actual roster is changed, the VOR calculations need to as well
  */
 export const initialRoster: IRoster = {
-  BENCH: 7,
+  BENCH: 5,
   DST: 1,
-  FLEX: 1,
+  FLEX: 2,
   SUPERFLEX: 0,
   K: 1,
   QB: 1,
@@ -133,14 +133,13 @@ export const initialRoster: IRoster = {
 };
 
 /**
- * Default scoring for an ESPN league.
- * See: https://support.espn.com/hc/en-us/articles/360003914032-Scoring-Formats
+ * Full-PPR default scoring with -1 point per interception thrown.
  */
 export const initialScore: IScoring = {
   passYds: 0.04,
   passTds: 4.0, // tslint:disable-line
-  passInts: -2.0,
-  receptions: 0.0,
+  passInts: -1.0,
+  receptions: 1.0,
   receptionYds: 0.1,
   receptionTds: 6.0,
   rushYds: 0.1,
